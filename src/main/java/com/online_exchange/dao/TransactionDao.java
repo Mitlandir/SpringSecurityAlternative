@@ -14,4 +14,6 @@ public interface TransactionDao {
     public Completedtransaction sendCompletedtransaction(Completedtransaction trans);
     public Transactionrequest fetchTransactionrequest(int requestid);
     public List<Transactionrequest> fetchTransactionrequests(int exchangerid);
+    public Transactionoffer fetchTransactionoffer(int offerid);
+    public List<Transactionoffer> fetchTransactionoffers(int clientid);
 }

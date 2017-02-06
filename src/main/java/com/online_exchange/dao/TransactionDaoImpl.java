@@ -1,7 +1,9 @@
 
 package com.online_exchange.dao;
 
+import com.online_exchange.model.Client;
 import com.online_exchange.model.Completedtransaction;
+import com.online_exchange.model.Exchanger;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
 import java.util.ArrayList;
@@ -57,6 +59,32 @@ public class TransactionDaoImpl implements TransactionDao{
         //placeholder END
         return list;
     }
-    
+
+    public Transactionoffer fetchTransactionoffer(int offerid) {
+        //placeholder START
+        Transactionoffer offer = new Transactionoffer();
+        offer.setAmount(240);
+        offer.setId(5);
+        offer.setRate(3);
+        //placeholder END
+        return offer;
+    }
+
+    public List<Transactionoffer> fetchTransactionoffers(int clientid) {
+        //placeholder START
+        List<Transactionoffer> list = new ArrayList<Transactionoffer>();
+        Transactionoffer o1 = new Transactionoffer();
+        o1.setAmount(45);
+        o1.setRate(77);
+        o1.setId(6);
+        list.add(o1);
+        Transactionoffer o2 = new Transactionoffer();
+        o2.setAmount(4534);
+        o2.setRate(133);
+        o2.setId(7);
+        list.add(o2);
+        //placeholder END
+        return list;
+    }   
     
 }

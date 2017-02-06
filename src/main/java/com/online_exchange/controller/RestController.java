@@ -4,6 +4,7 @@ import com.online_exchange.dao.TransactionDao;
 import com.online_exchange.dao.TransactionDaoImpl;
 import com.online_exchange.model.Client;
 import com.online_exchange.model.Completedtransaction;
+import com.online_exchange.model.Exchanger;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
 import java.util.ArrayList;
@@ -39,15 +40,26 @@ public class RestController {
     public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
         return transactionDao.sendCompletedtransaction(trans);
     }
-    
+
     @RequestMapping(value = "/fetchtransactionrequest/{requestid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Transactionrequest fetchTransactionrequest(@PathVariable int requestid){
+    public Transactionrequest fetchTransactionrequest(@PathVariable int requestid) {
         return transactionDao.fetchTransactionrequest(requestid);
     }
-    
-    @RequestMapping(value = "/fetchtransactionrequests/{exchangerid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Transactionrequest> fetchTransactionrequests(@PathVariable int exchangerid){
+
+    @RequestMapping(value = "/fetchtransactionrequests/{exchangerid}", produces = MediaType.APPLICATION_JSON_VALUE)//TODO: hash ID's
+    public List<Transactionrequest> fetchTransactionrequests(@PathVariable int exchangerid) {
         return transactionDao.fetchTransactionrequests(exchangerid);
+    }  
+
+    @RequestMapping(value = "/fetchtransactionoffer/{offerid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Transactionoffer fetchTransactionoffer(@PathVariable int offerid) {
+        return transactionDao.fetchTransactionoffer(offerid);
+    }
+
+    @RequestMapping(value = "/fetchtransactionoffers/{clientid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Transactionoffer> fetchTransactionoffers(@PathVariable int clientid) {
+        return transactionDao.fetchTransactionoffers(clientid);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)

@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,16 @@ public class RestController {
     @RequestMapping(value = "/sendcompletedtransaction", method = RequestMethod.POST)
     public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
         return transactionDao.sendCompletedtransaction(trans);
+    }
+    
+    @RequestMapping(value = "/fetchtransactionrequest/{requestid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Transactionrequest fetchTransactionrequest(@PathVariable int requestid){
+        return transactionDao.fetchTransactionrequest(requestid);
+    }
+    
+    @RequestMapping(value = "/fetchtransactionrequests/{exchangerid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Transactionrequest> fetchTransactionrequests(@PathVariable int exchangerid){
+        return transactionDao.fetchTransactionrequests(exchangerid);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)

@@ -16,4 +16,6 @@ public interface TransactionDao {
     public List<Transactionrequest> fetchTransactionrequests(int exchangerid);
     public Transactionoffer fetchTransactionoffer(int offerid);
     public List<Transactionoffer> fetchTransactionoffers(int clientid);
+    public boolean deleteTransactionrequest(Transactionrequest request);
+    public boolean deleteTransactionoffer(Transactionoffer offer);
 }

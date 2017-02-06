@@ -86,5 +86,15 @@ public class TransactionDaoImpl implements TransactionDao{
         //placeholder END
         return list;
     }   
+
+    public boolean deleteTransactionrequest(Transactionrequest request) {
+        //TODO
+        return false;
+    }
+
+    public boolean deleteTransactionoffer(Transactionoffer offer) {
+        //TODO
+        return false;
+    }
     
 }

@@ -19,6 +19,7 @@ public class MainController {
 
     @Autowired
     UserDao userDao;
+    
 
     @RequestMapping(value = {"/", "/user"}, method = RequestMethod.GET)
     public String homePage(ModelMap model) {

@@ -8,7 +8,9 @@ import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.persistence.internal.oxm.schema.model.Restriction;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,6 +38,7 @@ public class TransactionDaoImpl implements TransactionDao{
     }
     
     public Transactionrequest fetchTransactionrequest(int requestid){
+        
         //placeholder START
         Transactionrequest req = new Transactionrequest();
         req.setAmount(25);

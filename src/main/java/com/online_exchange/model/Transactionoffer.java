@@ -5,6 +5,7 @@
  */
 package com.online_exchange.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -92,7 +93,7 @@ public class Transactionoffer implements Serializable {
         this.rate = rate;
     }
 
-    public Client getClientId() {
+    public Client getClient() {
         return client;
     }
 

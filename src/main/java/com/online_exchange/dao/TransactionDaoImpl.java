@@ -44,6 +44,15 @@ public class TransactionDaoImpl implements TransactionDao{
         req.setAmount(25);
         req.setRate(22);
         req.setId(5);
+        
+        Transactionoffer offer = new Transactionoffer();
+        offer.setAmount(25);
+        offer.setRate(20);
+        offer.setId(10);
+        offer.setTransactionRequest(req);
+        List<Transactionoffer> offers = new ArrayList<Transactionoffer>();
+        offers.add(offer);
+        req.setTransactionofferCollection(offers);
         //placeholder END
         return req;   
     }

@@ -41,7 +41,6 @@ public class TransactionDaoImpl implements TransactionDao {
     public List<Transactionrequest> fetchTransactionrequests(int exchangerid) {
         List<Transactionrequest> requests = sessionFactory.openSession().getNamedQuery("Transactionrequest.findAll").list();
         List<Transactionoffer> offers = sessionFactory.openSession().createCriteria(Transactionoffer.class).add(Restrictions.eq("exchanger", new Exchanger(exchangerid))).list();
-        
         for (Transactionoffer offer : offers) {
             for (Transactionrequest request : requests) {
                 if (offer.getTransactionRequest().getId().equals(request.getId())) {

@@ -5,6 +5,7 @@
  */
 package com.online_exchange.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -52,6 +53,7 @@ public class Transactionrequest implements Serializable {
     @ManyToOne
     private Client client;
     @OneToMany(mappedBy = "transactionRequest")
+    @JsonBackReference
     private Collection<Transactionoffer> transactionofferCollection;
 
     public Transactionrequest() {
@@ -106,6 +108,10 @@ public class Transactionrequest implements Serializable {
 
     public void setTransactionofferCollection(Collection<Transactionoffer> transactionofferCollection) {
         this.transactionofferCollection = transactionofferCollection;
+    }
+    
+    public void addTransactionoffer(Transactionoffer offer){
+        this.transactionofferCollection.add(offer);
     }
 
     @Override

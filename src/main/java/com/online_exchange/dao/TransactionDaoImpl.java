@@ -38,38 +38,11 @@ public class TransactionDaoImpl implements TransactionDao{
     }
     
     public Transactionrequest fetchTransactionrequest(int requestid){
-        
-        //placeholder START
-        Transactionrequest req = new Transactionrequest();
-        req.setAmount(25);
-        req.setRate(22);
-        req.setId(5);
-        
-        Transactionoffer offer = new Transactionoffer();
-        offer.setAmount(25);
-        offer.setRate(20);
-        offer.setId(10);
-        offer.setTransactionRequest(req);
-        List<Transactionoffer> offers = new ArrayList<Transactionoffer>();
-        offers.add(offer);
-        req.setTransactionofferCollection(offers);
-        //placeholder END
-        return req;   
+        return (Transactionrequest) sessionFactory.openSession().getNamedQuery("Transactionrequest.findById").setParameter("id", requestid).uniqueResult();
     }
     
     public List<Transactionrequest> fetchTransactionrequests(int exchangerid){
-        //placeholder START
-        List<Transactionrequest> list = new ArrayList<Transactionrequest>();
-        Transactionrequest t1 = new Transactionrequest();
-        Transactionrequest t2 = new Transactionrequest();
-        t1.setAmount(123);
-        t1.setRate(35);
-        t2.setAmount(3556);
-        t2.setRate(65);
-        list.add(t1);
-        list.add(t2);
-        //placeholder END
-        return list;
+        return null;
     }
 
     public Transactionoffer fetchTransactionoffer(int offerid) {

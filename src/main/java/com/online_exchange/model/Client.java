@@ -5,6 +5,7 @@
  */
 package com.online_exchange.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -45,10 +46,13 @@ public class Client implements Serializable {
     @Column(name = "password")
     private String password;
     @OneToMany(mappedBy = "client")
+    @JsonBackReference
     private Collection<Transactionrequest> transactionrequestCollection;
     @OneToMany(mappedBy = "client")
+    @JsonBackReference
     private Collection<Completedtransaction> completedtransactionCollection;
     @OneToMany(mappedBy = "client")
+    @JsonBackReference
     private Collection<Transactionoffer> transactionofferCollection;
 
     public Client() {

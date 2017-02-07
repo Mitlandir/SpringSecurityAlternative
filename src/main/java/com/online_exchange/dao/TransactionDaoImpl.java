@@ -1,4 +1,3 @@
-
 package com.online_exchange.dao;
 
 import com.online_exchange.model.Client;
@@ -15,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TransactionDaoImpl implements TransactionDao{
+public class TransactionDaoImpl implements TransactionDao {
 
-    
     @Autowired
     SessionFactory sessionFactory;
-    
 
     public Transactionrequest sendTransactionrequest(Transactionrequest transactionrequest) {
         sessionFactory.openSession().save(transactionrequest);
@@ -36,13 +33,23 @@ public class TransactionDaoImpl implements TransactionDao{
         sessionFactory.openSession().save(trans);
         return trans;
     }
-    
-    public Transactionrequest fetchTransactionrequest(int requestid){
+
+    public Transactionrequest fetchTransactionrequest(int requestid) {
         return (Transactionrequest) sessionFactory.openSession().getNamedQuery("Transactionrequest.findById").setParameter("id", requestid).uniqueResult();
     }
-    
-    public List<Transactionrequest> fetchTransactionrequests(int exchangerid){
-        return null;
+
+    public List<Transactionrequest> fetchTransactionrequests(int exchangerid) {
+        List<Transactionrequest> requests = sessionFactory.openSession().getNamedQuery("Transactionrequest.findAll").list();
+        List<Transactionoffer> offers = sessionFactory.openSession().createCriteria(Transactionoffer.class).add(Restrictions.eq("exchanger", new Exchanger(exchangerid))).list();
+        
+        for (Transactionoffer offer : offers) {
+            for (Transactionrequest request : requests) {
+                if (offer.getTransactionRequest().getId().equals(request.getId())) {
+                    request.setAlreadyOffered(true);
+                }
+            }
+        }
+        return requests;
     }
 
     public Transactionoffer fetchTransactionoffer(int offerid) {
@@ -91,7 +98,7 @@ public class TransactionDaoImpl implements TransactionDao{
         offers.add(o2);
         List<Transactionrequest> requests = new ArrayList<Transactionrequest>();
         requests.add(req);
-        
+
         req.setClient(client1);
         client1.setTransactionrequestCollection(requests);
         client1.setTransactionofferCollection(offers);
@@ -103,7 +110,7 @@ public class TransactionDaoImpl implements TransactionDao{
         o2.setTransactionRequest(req);
         //placeholder END
         return offers;
-    }   
+    }
 
     public boolean deleteTransactionrequest(Transactionrequest request) {
         //TODO
@@ -114,5 +121,5 @@ public class TransactionDaoImpl implements TransactionDao{
         //TODO
         return false;
     }
-    
+
 }

@@ -20,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -55,6 +56,8 @@ public class Transactionrequest implements Serializable {
     @OneToMany(mappedBy = "transactionRequest")
     @JsonBackReference
     private Collection<Transactionoffer> transactionofferCollection;
+    @Transient
+    private boolean alreadyOffered = false;
 
     public Transactionrequest() {
     }
@@ -137,6 +140,20 @@ public class Transactionrequest implements Serializable {
     @Override
     public String toString() {
         return "com.online_exchange.model.Transactionrequest[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the alreadyOffered
+     */
+    public boolean isAlreadyOffered() {
+        return alreadyOffered;
+    }
+
+    /**
+     * @param alreadyOffered the alreadyOffered to set
+     */
+    public void setAlreadyOffered(boolean alreadyOffered) {
+        this.alreadyOffered = alreadyOffered;
     }
     
 }

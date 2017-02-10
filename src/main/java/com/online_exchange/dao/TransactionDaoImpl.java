@@ -8,6 +8,7 @@ import com.online_exchange.model.Transactionrequest;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.persistence.internal.oxm.schema.model.Restriction;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,12 +113,20 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     public boolean deleteTransactionrequest(Transactionrequest request) {
-        //TODO
+        try{
+        sessionFactory.openSession().delete(request);
+        }catch(HibernateException e){
+           return false; 
+        }
         return false;
     }
 
     public boolean deleteTransactionoffer(Transactionoffer offer) {
-        //TODO
+        try{
+        sessionFactory.openSession().delete(offer);
+        }catch(HibernateException e){
+           return false; 
+        }
         return false;
     }
 

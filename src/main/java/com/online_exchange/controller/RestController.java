@@ -29,7 +29,7 @@ public class RestController {
 
     @Autowired
     TransactionDao transactionDao;
-    
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -37,16 +37,6 @@ public class RestController {
     public Transactionrequest sendTransactionRequest(@RequestBody Transactionrequest req) {
         return transactionDao.sendTransactionrequest(req);
 
-    }
-
-    @RequestMapping(value = "/sendtransactionoffer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Transactionoffer sendTransactionOffer(@RequestBody Transactionoffer offer) {
-        return transactionDao.sendTransactionoffer(offer);
-    }
-
-    @RequestMapping(value = "/sendcompletedtransaction", method = RequestMethod.POST)
-    public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
-        return transactionDao.sendCompletedtransaction(trans);
     }
 
     @RequestMapping(value = "/fetchtransactionrequest/{requestid}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,7 +47,12 @@ public class RestController {
     @RequestMapping(value = "/fetchtransactionrequests/{exchangerid}", produces = MediaType.APPLICATION_JSON_VALUE)//TODO: hash ID's
     public List<Transactionrequest> fetchTransactionrequests(@PathVariable int exchangerid) {
         return transactionDao.fetchTransactionrequests(exchangerid);
-    }  
+    }
+
+    @RequestMapping(value = "/sendtransactionoffer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Transactionoffer sendTransactionOffer(@RequestBody Transactionoffer offer) {
+        return transactionDao.sendTransactionoffer(offer);
+    }
 
     @RequestMapping(value = "/fetchtransactionoffer/{offerid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Transactionoffer fetchTransactionoffer(@PathVariable int offerid) {
@@ -70,10 +65,15 @@ public class RestController {
         return transactionDao.fetchTransactionoffers(clientid);
     }
 
+    @RequestMapping(value = "/sendcompletedtransaction", method = RequestMethod.POST)
+    public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
+        return transactionDao.sendCompletedtransaction(trans);
+    }
+
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public List<Transactionoffer> test() throws JsonProcessingException {
         List<Transactionoffer> list = sessionFactory.openSession().getNamedQuery("Transactionoffer.findAll").list();
-        for(Transactionoffer offer : list){
+        for (Transactionoffer offer : list) {
             offer.getClient().setTransactionrequestCollection(null);
             offer.getClient().setTransactionofferCollection(null);
             offer.getTransactionRequest().setTransactionofferCollection(null);
@@ -81,6 +81,5 @@ public class RestController {
         }
         return list;
     }
-
 
 }

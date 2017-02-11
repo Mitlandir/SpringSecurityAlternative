@@ -22,7 +22,7 @@ public class MainController {
     
 
     @RequestMapping(value = {"/", "/user"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
+    public String homePage(ModelMap model) {      
         model.addAttribute("user", getPrincipal());
         return "user";
     }
@@ -62,9 +62,9 @@ public class MainController {
     private String getPrincipal() {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();
+            
         } else {
             userName = principal.toString();
         }

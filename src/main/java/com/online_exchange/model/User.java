@@ -2,6 +2,7 @@ package com.online_exchange.model;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="APP_USER")
+
 public class User {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -39,7 +44,7 @@ public class User {
 	@Column(name="STATE", nullable=false)
 	private String state=State.ACTIVE.getState();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "APP_USER_USER_PROFILE", 
              joinColumns = { @JoinColumn(name = "USER_ID") }, 
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
@@ -143,6 +148,7 @@ public class User {
 				+ ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", email=" + email + ", state=" + state + ", userProfiles=" + userProfiles +"]";
 	}
+
 
 	
 }

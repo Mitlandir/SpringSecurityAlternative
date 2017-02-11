@@ -90,12 +90,12 @@ public class TransactionDaoImpl implements TransactionDao {
         o1.setAmount(45);
         o1.setRate(77);
         o1.setId(6);
-        offers.add(o1);
+        
         Transactionoffer o2 = new Transactionoffer();
         o2.setAmount(4534);
         o2.setRate(133);
         o2.setId(7);
-        offers.add(o2);
+        
         List<Transactionrequest> requests = new ArrayList<Transactionrequest>();
         requests.add(req);
 
@@ -106,8 +106,15 @@ public class TransactionDaoImpl implements TransactionDao {
         exchanger1.setTransactionofferCollection(offers);
         o1.setExchanger(exchanger1);
         o1.setExchanger(exchanger2);
+        offers.add(o1);
+        offers.add(o2);
+        exchanger1.setTransactionofferCollection(offers);
+        client1.setTransactionofferCollection(offers);
+        //exchanger2.setTransactionofferCollection(offers);
         o1.setTransactionRequest(req);
         o2.setTransactionRequest(req);
+        
+        
         //placeholder END
         return offers;
     }

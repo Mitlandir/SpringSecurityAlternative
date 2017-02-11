@@ -9,8 +9,14 @@ import com.online_exchange.model.Completedtransaction;
 import com.online_exchange.model.Exchanger;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
+import com.online_exchange.model.User;
+import com.online_exchange.model.UserProfile;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -69,17 +75,49 @@ public class RestController {
     public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
         return transactionDao.sendCompletedtransaction(trans);
     }
+    
+    @RequestMapping(value = "/exchanger/sec")
+    @ResponseBody
+    public String sec(){
+        return "only exchangers allowed";
+    }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public List<Transactionoffer> test() throws JsonProcessingException {
-        List<Transactionoffer> list = sessionFactory.openSession().getNamedQuery("Transactionoffer.findAll").list();
-        for (Transactionoffer offer : list) {
-            offer.getClient().setTransactionrequestCollection(null);
-            offer.getClient().setTransactionofferCollection(null);
-            offer.getTransactionRequest().setTransactionofferCollection(null);
-            offer.getExchanger().setTransactionofferCollection(null);
+    public String test() throws JsonProcessingException {
+        User user = new User();
+        user.setEmail("f@konjc.com");
+        user.setFirstName("f");
+        user.setPassword("s");
+        user.setSsoId("12sf");
+        user.setState("Active");
+        user.setLastName("11f");
+        Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+
+        UserProfile userProfile = new UserProfile(5);
+
+        userProfiles.add(userProfile);
+        user.setUserProfiles(userProfiles);
+        System.out.println(user);
+        
+        Session s = sessionFactory.openSession();
+        Transaction t = s.beginTransaction();
+        s.save(user);
+        t.commit();
+        s.close();
+        
+        //sessionFactory.openSession().save(userProfile);
+        
+        return "kurcinnaaaaa!!";
+
+    }
+
+    @RequestMapping(value = "/danijemozdakurcina", method = RequestMethod.GET)
+    public void test2() throws JsonProcessingException {
+        List<Client> lista = sessionFactory.openSession().getNamedQuery("Client.findAll").list();
+        for (Client lista1 : lista) {
+            System.out.println(lista1.getEmail());
         }
-        return list;
+
     }
 
 }

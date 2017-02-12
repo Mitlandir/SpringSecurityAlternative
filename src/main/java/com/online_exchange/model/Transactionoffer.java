@@ -50,12 +50,14 @@ public class Transactionoffer implements Serializable {
     private double rate;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonBackReference
     private Client client;
     @JoinColumn(name = "transactionRequest_id", referencedColumnName = "id")
     @ManyToOne
     private Transactionrequest transactionRequest;
     @JoinColumn(name = "exchanger_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonBackReference
     private Exchanger exchanger;
 
     public Transactionoffer() {

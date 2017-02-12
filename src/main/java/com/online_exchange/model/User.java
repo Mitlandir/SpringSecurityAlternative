@@ -1,6 +1,9 @@
 package com.online_exchange.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 
@@ -15,140 +18,241 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name="APP_USER")
+@Table(name = "APP_USER")
 
 public class User {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@Column(name="SSO_ID", unique=true, nullable=false)
-	private String ssoId;
-	
-	@Column(name="PASSWORD", nullable=false)
-	private String password;
-		
-	@Column(name="FIRST_NAME", nullable=false)
-	private String firstName;
+    @Column(name = "SSO_ID", unique = true, nullable = false)
+    private String ssoId;
 
-	@Column(name="LAST_NAME", nullable=false)
-	private String lastName;
+    @Column(name = "PASSWORD", nullable = false)
+    private String password;
 
-	@Column(name="EMAIL", nullable=false)
-	private String email;
+    @Column(name = "FIRST_NAME", nullable = false)
+    private String firstName;
 
-	@Column(name="STATE", nullable=false)
-	private String state=State.ACTIVE.getState();
+    @Column(name = "LAST_NAME", nullable = false)
+    private String lastName;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "APP_USER_USER_PROFILE", 
-             joinColumns = { @JoinColumn(name = "USER_ID") }, 
-             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
-	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
 
-	public int getId() {
-		return id;
-	}
+    @Column(name = "STATE", nullable = false)
+    private String state = State.ACTIVE.getState();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @OneToMany(mappedBy = "client")
+    @JsonBackReference
+    private List<Transactionrequest> transactionrequests;
+    
+    
+    @OneToMany(mappedBy = "client")
+    @JsonBackReference
+    private List<Completedtransaction> completedtransactionsClient;
+    
+    @OneToMany(mappedBy = "exchanger")
+    @JsonBackReference
+    private List<Completedtransaction> completedtransactionsExchanger;
+    
+    
+    @OneToMany(mappedBy = "client")
+    @JsonBackReference
+    private List<Transactionoffer> transactionoffersClient;
+    @OneToMany(mappedBy = "exchanger")
+    @JsonBackReference
+    private List<Transactionoffer> transactionoffersExchanger;
 
-	public String getSsoId() {
-		return ssoId;
-	}
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "APP_USER_USER_PROFILE",
+            joinColumns = {
+                @JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "USER_PROFILE_ID")})
+    private List<UserProfile> userProfiles = new ArrayList<UserProfile>();
+    
+    public User(){}
+    
+    public User(int id){
+        this.id = id;
+    }
 
-	public void setSsoId(String ssoId) {
-		this.ssoId = ssoId;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
+        return result;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        User other = (User) obj;
+        if (id != other.id) {
+            return false;
+        }
+        if (ssoId == null) {
+            if (other.ssoId != null) {
+                return false;
+            }
+        } else if (!ssoId.equals(other.ssoId)) {
+            return false;
+        }
+        return true;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
+                + ", firstName=" + firstName + ", lastName=" + lastName
+                + ", email=" + email + ", state=" + state + ", userProfiles=" + userProfiles + "]";
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getSsoId() {
+        return ssoId;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public Set<UserProfile> getUserProfiles() {
-		return userProfiles;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
-		this.userProfiles = userProfiles;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
-		return result;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof User))
-			return false;
-		User other = (User) obj;
-		if (id != other.id)
-			return false;
-		if (ssoId == null) {
-			if (other.ssoId != null)
-				return false;
-		} else if (!ssoId.equals(other.ssoId))
-			return false;
-		return true;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", ssoId=" + ssoId + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + ", state=" + state + ", userProfiles=" + userProfiles +"]";
-	}
+    public String getState() {
+        return state;
+    }
 
+    public void setState(String state) {
+        this.state = state;
+    }
 
-	
+    public List<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(List<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
+    }
+
+    public List<Transactionrequest> getTransactionrequests() {
+        return transactionrequests;
+    }
+
+    public void setTransactionrequests(List<Transactionrequest> transactionrequests) {
+        this.transactionrequests = transactionrequests;
+    }
+
+    public List<Completedtransaction> getCompletedtransaction() {
+        return getCompletedtransactions();
+    }
+
+    public void setCompletedtransactionsClient(List<Completedtransaction> completedtransactionsClient) {
+        this.completedtransactionsClient = completedtransactionsClient;
+    }
+
+    public List<Transactionoffer> getTransactionoffersClient() {
+        return transactionoffersClient;
+    }
+
+    public void setTransactionoffersClient(List<Transactionoffer> transactionoffersClient) {
+        this.transactionoffersClient = transactionoffersClient;
+    }
+
+    /**
+     * @return the transactionoffersExchanger
+     */
+    public List<Transactionoffer> getTransactionoffersExchanger() {
+        return transactionoffersExchanger;
+    }
+
+    /**
+     * @param transactionoffersExchanger the transactionoffersExchanger to set
+     */
+    public void setTransactionoffersExchanger(List<Transactionoffer> transactionoffersExchanger) {
+        this.transactionoffersExchanger = transactionoffersExchanger;
+    }
+
+    /**
+     * @return the completedtransactionsClient
+     */
+    public List<Completedtransaction> getCompletedtransactions() {
+        return getCompletedtransactionsClient();
+    }
+
+    /**
+     * @return the completedtransactionsClient
+     */
+    public List<Completedtransaction> getCompletedtransactionsClient() {
+        return completedtransactionsClient;
+    }
+
+    /**
+     * @return the completedtransactionsExchanger
+     */
+    public List<Completedtransaction> getCompletedtransactionsExchanger() {
+        return completedtransactionsExchanger;
+    }
+
+    /**
+     * @param completedtransactionsExchanger the completedtransactionsExchanger to set
+     */
+    public void setCompletedtransactionsExchanger(List<Completedtransaction> completedtransactionsExchanger) {
+        this.completedtransactionsExchanger = completedtransactionsExchanger;
+    }
+
 }

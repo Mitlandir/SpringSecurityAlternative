@@ -48,10 +48,10 @@ public class Completedtransaction implements Serializable {
     private double rate;
     @JoinColumn(name = "exchanger_id", referencedColumnName = "id")
     @ManyToOne
-    private Exchanger exchanger;
+    private User exchanger;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @ManyToOne
-    private Client client;
+    private User client;
     @Transient
     private Transactionoffer transactionoffer;
 
@@ -92,19 +92,19 @@ public class Completedtransaction implements Serializable {
         this.rate = rate;
     }
 
-    public Exchanger getExchanger() {
+    public User getExchanger() {
         return exchanger;
     }
 
-    public void setExchanger(Exchanger exchanger) {
+    public void setExchanger(User exchanger) {
         this.exchanger = exchanger;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

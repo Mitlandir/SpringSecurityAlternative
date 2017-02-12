@@ -1,6 +1,5 @@
 package com.online_exchange.dao;
 
-import com.online_exchange.model.Client;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -28,10 +27,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return (User) crit.uniqueResult();
 	}
         
-        public List<Client> find (Integer client){
+        public List<User> find (Integer client){
             Session ses = sessionFactory.openSession();
             ses.beginTransaction();
-            List<Client> lista = ses.createCriteria(Client.class).add(Restrictions.eq("email", client)).list();
+            List<User> lista = ses.createCriteria(User.class).add(Restrictions.eq("email", client)).list();
             for(int i = 0; i < lista.size(); i++){
                 System.out.println(lista.get(i).getEmail());
             }

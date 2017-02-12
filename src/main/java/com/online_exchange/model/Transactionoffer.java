@@ -51,14 +51,14 @@ public class Transactionoffer implements Serializable {
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @ManyToOne
     @JsonBackReference
-    private Client client;
+    private User client;
     @JoinColumn(name = "transactionRequest_id", referencedColumnName = "id")
     @ManyToOne
     private Transactionrequest transactionRequest;
     @JoinColumn(name = "exchanger_id", referencedColumnName = "id")
     @ManyToOne
     @JsonBackReference
-    private Exchanger exchanger;
+    private User exchanger;
 
     public Transactionoffer() {
     }
@@ -97,11 +97,11 @@ public class Transactionoffer implements Serializable {
         this.rate = rate;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 
@@ -113,11 +113,11 @@ public class Transactionoffer implements Serializable {
         this.transactionRequest = transactionRequest;
     }
 
-    public Exchanger getExchanger() {
+    public User getExchanger() {
         return exchanger;
     }
 
-    public void setExchanger(Exchanger exchanger) {
+    public void setExchanger(User exchanger) {
         this.exchanger = exchanger;
     }
 

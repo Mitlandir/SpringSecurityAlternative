@@ -52,7 +52,7 @@ public class Transactionrequest implements Serializable {
     private double rate;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @ManyToOne
-    private Client client;
+    private User client;
     @OneToMany(mappedBy = "transactionRequest")
     @JsonBackReference
     private Collection<Transactionoffer> transactionofferCollection;
@@ -96,11 +96,11 @@ public class Transactionrequest implements Serializable {
         this.rate = rate;
     }
 
-    public Client getClient() {
+    public User getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(User client) {
         this.client = client;
     }
 

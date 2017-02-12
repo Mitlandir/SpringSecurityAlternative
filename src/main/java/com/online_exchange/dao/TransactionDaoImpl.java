@@ -1,10 +1,9 @@
 package com.online_exchange.dao;
 
-import com.online_exchange.model.Client;
 import com.online_exchange.model.Completedtransaction;
-import com.online_exchange.model.Exchanger;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
+import com.online_exchange.model.User;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.persistence.internal.oxm.schema.model.Restriction;
@@ -41,7 +40,7 @@ public class TransactionDaoImpl implements TransactionDao {
 
     public List<Transactionrequest> fetchTransactionrequests(int exchangerid) {
         List<Transactionrequest> requests = sessionFactory.openSession().getNamedQuery("Transactionrequest.findAll").list();
-        List<Transactionoffer> offers = sessionFactory.openSession().createCriteria(Transactionoffer.class).add(Restrictions.eq("exchanger", new Exchanger(exchangerid))).list();
+        List<Transactionoffer> offers = sessionFactory.openSession().createCriteria(Transactionoffer.class).add(Restrictions.eq("exchanger", new User(exchangerid))).list();
         for (Transactionoffer offer : offers) {
             for (Transactionrequest request : requests) {
                 if (offer.getTransactionRequest().getId().equals(request.getId())) {

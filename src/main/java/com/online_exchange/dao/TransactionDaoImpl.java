@@ -52,21 +52,7 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     public Transactionoffer fetchTransactionoffer(int offerid) {
-        //placeholder START
-        Transactionoffer offer = new Transactionoffer();
-        offer.setAmount(240);
-        offer.setId(5);
-        offer.setRate(3);
-        Transactionrequest request = new Transactionrequest();
-        request.setAmount(240);
-        request.setRate(5);
-        request.setId(7);
-        offer.setTransactionRequest(request);
-        List<Transactionoffer> offers = new ArrayList<Transactionoffer>();
-        offers.add(offer);
-        request.setTransactionofferCollection(offers);
-        //placeholder END
-        return offer;
+        return (Transactionoffer) sessionFactory.openSession().get(Transactionoffer.class, offerid);
     }
 
     public List<Transactionoffer> fetchTransactionoffers(int clientid) {

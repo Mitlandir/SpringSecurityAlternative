@@ -80,43 +80,9 @@ public class RestController {
         return "only exchangers allowed";
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public void test() throws JsonProcessingException {
-        User user = new User();
-        user.setUserProfiles(null);
-        UserProfile userProfile = new UserProfile();
-        userProfile.setId(1);
-        userProfile.setType("USER");
-        List<UserProfile> userProfileList = new ArrayList<UserProfile>();
-        userProfileList.add(userProfile);
-        user.setUserProfiles(userProfileList);
-        user.setEmail("pusikurac@pusiga.com");
-        user.setFirstName("msdrlmsdklds");
-        user.setLastName("djoka");
-        user.setPassword("sdfsdfsdfsdfsd");
-        user.setSsoId("konj");
-        user.setState("Active");
-        
-        List<Transactionrequest> requests = new ArrayList<Transactionrequest>();
-        Transactionrequest req = new Transactionrequest();
-        req.setAlreadyOffered(false);
-        req.setAmount(222);
-        req.setClient(user);
-        req.setRate(450);
-        requests.add(req);
-        user.setTransactionrequests(requests);
-        req.setClient(user);
-        req.setId(1);
-        user.setId(1);
-
-        
-        
-        Session ses = sessionFactory.openSession();
-        Transaction tx = ses.beginTransaction();
-        ses.save(req);
-        tx.commit();
-        ses.close();
-
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Transactionoffer> test() throws JsonProcessingException {
+        return transactionDao.fetchTransactionoffers(1);
     }
 
     @RequestMapping(value = "/danijemozdakurcina", method = RequestMethod.GET)

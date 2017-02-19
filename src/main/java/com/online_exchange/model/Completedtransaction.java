@@ -5,6 +5,7 @@
  */
 package com.online_exchange.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -48,9 +49,11 @@ public class Completedtransaction implements Serializable {
     private double rate;
     @JoinColumn(name = "exchanger_id", referencedColumnName = "id")
     @ManyToOne
+    //@JsonBackReference
     private User exchanger;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonBackReference
     private User client;
     @Transient
     private Transactionoffer transactionoffer;

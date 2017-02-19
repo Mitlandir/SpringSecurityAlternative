@@ -52,17 +52,15 @@ public class User {
     @OneToMany(mappedBy = "client")
     @JsonBackReference
     private List<Transactionrequest> transactionrequests;
-    
-    
-    @OneToMany(mappedBy = "client")
-    @JsonBackReference
-    private List<Completedtransaction> completedtransactionsClient;
-    
+
     @OneToMany(mappedBy = "exchanger")
     @JsonBackReference
     private List<Completedtransaction> completedtransactionsExchanger;
-    
-    
+
+    @OneToMany(mappedBy = "client")
+    @JsonBackReference
+    private List<Completedtransaction> completedtransactionsClient;
+
     @OneToMany(mappedBy = "client")
     @JsonBackReference
     private List<Transactionoffer> transactionoffersClient;
@@ -77,10 +75,11 @@ public class User {
             inverseJoinColumns = {
                 @JoinColumn(name = "USER_PROFILE_ID")})
     private List<UserProfile> userProfiles = new ArrayList<UserProfile>();
-    
-    public User(){}
-    
-    public User(int id){
+
+    public User() {
+    }
+
+    public User(int id) {
         this.id = id;
     }
 
@@ -249,7 +248,8 @@ public class User {
     }
 
     /**
-     * @param completedtransactionsExchanger the completedtransactionsExchanger to set
+     * @param completedtransactionsExchanger the completedtransactionsExchanger
+     * to set
      */
     public void setCompletedtransactionsExchanger(List<Completedtransaction> completedtransactionsExchanger) {
         this.completedtransactionsExchanger = completedtransactionsExchanger;

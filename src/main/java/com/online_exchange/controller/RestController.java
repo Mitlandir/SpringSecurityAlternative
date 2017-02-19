@@ -69,9 +69,14 @@ public class RestController {
         return transactionDao.fetchTransactionoffers(clientid);
     }
 
-    @RequestMapping(value = "/sendcompletedtransaction", method = RequestMethod.POST)
+    @RequestMapping(value = "/sendcompletedtransaction", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
         return transactionDao.sendCompletedtransaction(trans);
+    }
+    
+    @RequestMapping(value = "/fetchcompletedtransaction/{completedtransactionid}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Completedtransaction fetchCompletedtransaction(@PathVariable int completedtransactionid){
+        return transactionDao.fetchCompletedtransaction(completedtransactionid);
     }
     
     @RequestMapping(value = "/exchanger/sec")

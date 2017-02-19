@@ -77,4 +77,8 @@ public class TransactionDaoImpl implements TransactionDao {
         return false;
     }
 
+    public Completedtransaction fetchCompletedtransaction(int completedtransactionid) {
+        return (Completedtransaction) sessionFactory.openSession().get(Completedtransaction.class, completedtransactionid);
+    }
+
 }

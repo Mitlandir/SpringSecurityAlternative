@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.online_exchange.dao.TransactionDao;
 import com.online_exchange.dao.TransactionDaoImpl;
 import com.online_exchange.model.Completedtransaction;
+import com.online_exchange.model.OfferDto;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
 import com.online_exchange.model.User;
@@ -73,26 +74,26 @@ public class RestController {
     public Completedtransaction sendCompletedtransaction(@RequestBody Completedtransaction trans) {
         return transactionDao.sendCompletedtransaction(trans);
     }
-    
+
     @RequestMapping(value = "/fetchcompletedtransaction/{completedtransactionid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Completedtransaction fetchCompletedtransaction(@PathVariable int completedtransactionid){
+    public Completedtransaction fetchCompletedtransaction(@PathVariable int completedtransactionid) {
         return transactionDao.fetchCompletedtransaction(completedtransactionid);
     }
-    
+
     @RequestMapping(value = "/exchanger/sec")
     @ResponseBody
-    public String sec(){
+    public String sec() {
         return "only exchangers allowed";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Transactionoffer> test() throws JsonProcessingException {
-        return transactionDao.fetchTransactionoffers(1);
+    public Transactionoffer test() throws JsonProcessingException {
+        Transactionoffer offer = transactionDao.fetchTransactionoffer(1);
+        return offer;
     }
 
     @RequestMapping(value = "/danijemozdakurcina", method = RequestMethod.GET)
     public void test2() throws JsonProcessingException {
-
 
     }
 

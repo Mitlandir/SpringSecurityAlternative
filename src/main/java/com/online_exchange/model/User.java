@@ -196,9 +196,6 @@ public class User {
         this.transactionrequests = transactionrequests;
     }
 
-    public List<Completedtransaction> getCompletedtransaction() {
-        return getCompletedtransactions();
-    }
 
     public void setCompletedtransactionsClient(List<Completedtransaction> completedtransactionsClient) {
         this.completedtransactionsClient = completedtransactionsClient;
@@ -226,12 +223,6 @@ public class User {
         this.transactionoffersExchanger = transactionoffersExchanger;
     }
 
-    /**
-     * @return the completedtransactionsClient
-     */
-    public List<Completedtransaction> getCompletedtransactions() {
-        return getCompletedtransactionsClient();
-    }
 
     /**
      * @return the completedtransactionsClient

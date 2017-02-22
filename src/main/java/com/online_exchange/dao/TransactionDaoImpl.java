@@ -81,4 +81,8 @@ public class TransactionDaoImpl implements TransactionDao {
         return (Completedtransaction) sessionFactory.openSession().get(Completedtransaction.class, completedtransactionid);
     }
 
+    public List<Completedtransaction> fetchCompletedtransactions() {
+        return sessionFactory.openSession().createCriteria(Completedtransaction.class).list();
+    }
+
 }

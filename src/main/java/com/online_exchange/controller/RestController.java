@@ -19,6 +19,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -87,9 +88,10 @@ public class RestController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Transactionoffer test() throws JsonProcessingException {
-        Transactionoffer offer = transactionDao.fetchTransactionoffer(1);
-        return offer;
+    public List<Completedtransaction> test() throws JsonProcessingException {
+        //JSONArray json = new JSONArray(transactionDao.fetchCompletedtransactions());
+        return transactionDao.fetchCompletedtransactions();
+        //return json.toString();
     }
 
     @RequestMapping(value = "/danijemozdakurcina", method = RequestMethod.GET)

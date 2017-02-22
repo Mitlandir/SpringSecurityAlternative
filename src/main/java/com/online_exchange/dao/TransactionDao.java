@@ -19,4 +19,5 @@ public interface TransactionDao {
     public boolean deleteTransactionrequest(Transactionrequest request);
     public boolean deleteTransactionoffer(Transactionoffer offer);
     public Completedtransaction fetchCompletedtransaction(int completedtransactionid);
+    public List<Completedtransaction> fetchCompletedtransactions();
 }

@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -48,8 +49,8 @@ public class User {
     @Column(name = "STATE", nullable = false)
     private String state = State.ACTIVE.getState();
 
-    @OneToMany(mappedBy = "client")
-    private List<Transactionrequest> transactionrequests;
+    @OneToOne(mappedBy = "client")
+    private Transactionrequest transactionrequest;
 
     @OneToMany(mappedBy = "exchanger")
     private List<Completedtransaction> completedtransactionsExchanger;
@@ -182,12 +183,12 @@ public class User {
         this.userProfiles = userProfiles;
     }
 
-    public List<Transactionrequest> getTransactionrequests() {
-        return transactionrequests;
+    public Transactionrequest getTransactionrequest() {
+        return transactionrequest;
     }
 
-    public void setTransactionrequests(List<Transactionrequest> transactionrequests) {
-        this.transactionrequests = transactionrequests;
+    public void setTransactionrequest(Transactionrequest transactionrequest) {
+        this.transactionrequest = transactionrequest;
     }
 
     public void setCompletedtransactionsClient(List<Completedtransaction> completedtransactionsClient) {
@@ -243,7 +244,7 @@ public class User {
         this.setCompletedtransactionsExchanger(null);
         this.setTransactionoffersClient(null);
         this.setTransactionoffersExchanger(null);
-        this.setTransactionrequests(null);
+        this.setTransactionrequest(null);
     }
 
     public void prune() {

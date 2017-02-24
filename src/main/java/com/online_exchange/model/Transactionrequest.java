@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -53,7 +54,7 @@ public class Transactionrequest implements Serializable {
     @Column(name = "rate")
     private double rate;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private User client;
     @OneToMany(mappedBy = "transactionRequest")
     private Collection<Transactionoffer> transactionofferCollection;

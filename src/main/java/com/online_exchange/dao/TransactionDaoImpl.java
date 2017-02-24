@@ -35,7 +35,9 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     public Transactionrequest fetchTransactionrequest(int requestid) {
-        return (Transactionrequest) sessionFactory.openSession().getNamedQuery("Transactionrequest.findById").setParameter("id", requestid).uniqueResult();
+        Transactionrequest request = (Transactionrequest) sessionFactory.openSession().getNamedQuery("Transactionrequest.findById").setParameter("id", requestid).uniqueResult();
+        request.prune();
+        return request;
     }
 
     public List<Transactionrequest> fetchTransactionrequests(int exchangerid) {
@@ -48,15 +50,24 @@ public class TransactionDaoImpl implements TransactionDao {
                 }
             }
         }
+        for(Transactionrequest req : requests){
+            req.prune();
+        }
         return requests;
     }
 
     public Transactionoffer fetchTransactionoffer(int offerid) {
-        return (Transactionoffer) sessionFactory.openSession().get(Transactionoffer.class, offerid);
+        Transactionoffer offer = (Transactionoffer) sessionFactory.openSession().get(Transactionoffer.class, offerid);
+        offer.prune();
+        return offer;
     }
 
     public List<Transactionoffer> fetchTransactionoffers(int clientid) {
-        return (ArrayList<Transactionoffer>) sessionFactory.openSession().createCriteria(Transactionoffer.class).list();
+        List<Transactionoffer> offers = (ArrayList<Transactionoffer>) sessionFactory.openSession().createCriteria(Transactionoffer.class).list();
+        for(Transactionoffer offer : offers){
+            offer.prune();
+        }
+        return offers;
     }
 
     public boolean deleteTransactionrequest(Transactionrequest request) {
@@ -78,11 +89,17 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     public Completedtransaction fetchCompletedtransaction(int completedtransactionid) {
-        return (Completedtransaction) sessionFactory.openSession().get(Completedtransaction.class, completedtransactionid);
+        Completedtransaction trans = (Completedtransaction) sessionFactory.openSession().get(Completedtransaction.class, completedtransactionid);
+        trans.prune();
+        return trans;
     }
 
     public List<Completedtransaction> fetchCompletedtransactions() {
-        return sessionFactory.openSession().createCriteria(Completedtransaction.class).list();
+        List<Completedtransaction> transList = sessionFactory.openSession().createCriteria(Completedtransaction.class).list();
+        for(Completedtransaction trans : transList){
+            trans.prune();
+        }
+        return transList;
     }
 
 }

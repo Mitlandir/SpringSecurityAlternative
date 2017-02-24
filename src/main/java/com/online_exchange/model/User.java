@@ -1,6 +1,5 @@
 package com.online_exchange.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -50,22 +49,17 @@ public class User {
     private String state = State.ACTIVE.getState();
 
     @OneToMany(mappedBy = "client")
-    @JsonBackReference
     private List<Transactionrequest> transactionrequests;
 
     @OneToMany(mappedBy = "exchanger")
-    @JsonBackReference
     private List<Completedtransaction> completedtransactionsExchanger;
 
     @OneToMany(mappedBy = "client")
-    @JsonBackReference
     private List<Completedtransaction> completedtransactionsClient;
 
     @OneToMany(mappedBy = "client")
-    @JsonBackReference
     private List<Transactionoffer> transactionoffersClient;
     @OneToMany(mappedBy = "exchanger")
-    @JsonBackReference
     private List<Transactionoffer> transactionoffersExchanger;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

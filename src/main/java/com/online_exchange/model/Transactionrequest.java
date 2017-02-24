@@ -32,9 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "transactionrequest")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Transactionrequest.findAll", query = "SELECT t FROM Transactionrequest t"),
-    @NamedQuery(name = "Transactionrequest.findById", query = "SELECT t FROM Transactionrequest t WHERE t.id = :id"),
-    @NamedQuery(name = "Transactionrequest.findByAmount", query = "SELECT t FROM Transactionrequest t WHERE t.amount = :amount"),
+    @NamedQuery(name = "Transactionrequest.findAll", query = "SELECT t FROM Transactionrequest t")
+    ,
+    @NamedQuery(name = "Transactionrequest.findById", query = "SELECT t FROM Transactionrequest t WHERE t.id = :id")
+    ,
+    @NamedQuery(name = "Transactionrequest.findByAmount", query = "SELECT t FROM Transactionrequest t WHERE t.amount = :amount")
+    ,
     @NamedQuery(name = "Transactionrequest.findByRate", query = "SELECT t FROM Transactionrequest t WHERE t.rate = :rate")})
 public class Transactionrequest implements Serializable {
 
@@ -112,8 +115,8 @@ public class Transactionrequest implements Serializable {
     public void setTransactionofferCollection(Collection<Transactionoffer> transactionofferCollection) {
         this.transactionofferCollection = transactionofferCollection;
     }
-    
-    public void addTransactionoffer(Transactionoffer offer){
+
+    public void addTransactionoffer(Transactionoffer offer) {
         this.transactionofferCollection.add(offer);
     }
 
@@ -155,5 +158,18 @@ public class Transactionrequest implements Serializable {
     public void setAlreadyOffered(boolean alreadyOffered) {
         this.alreadyOffered = alreadyOffered;
     }
-    
+
+    public void purge() {
+        this.setClient(null);
+        this.setTransactionofferCollection(null);
+    }
+
+    public void prune() {
+        this.getClient().purge();
+        if(this.getTransactionofferCollection() != null){
+            for(Transactionoffer offer : this.getTransactionofferCollection()){
+                offer.purge();
+            }
+        }
+    }
 }

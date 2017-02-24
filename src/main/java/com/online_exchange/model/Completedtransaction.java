@@ -135,5 +135,15 @@ public class Completedtransaction implements Serializable {
     public String toString() {
         return "com.online_exchange.model.Completedtransaction[ id=" + id + " ]";
     }
+    
+    public void purge(){
+        this.setClient(null);
+        this.setExchanger(null);
+    }
+    
+    public void prune(){
+        this.getClient().purge();
+        this.getExchanger().purge();
+    }
 
 }

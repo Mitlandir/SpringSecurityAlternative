@@ -30,9 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "transactionoffer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Transactionoffer.findAll", query = "SELECT t FROM Transactionoffer t"),
-    @NamedQuery(name = "Transactionoffer.findById", query = "SELECT t FROM Transactionoffer t WHERE t.id = :id"),
-    @NamedQuery(name = "Transactionoffer.findByAmount", query = "SELECT t FROM Transactionoffer t WHERE t.amount = :amount"),
+    @NamedQuery(name = "Transactionoffer.findAll", query = "SELECT t FROM Transactionoffer t")
+    ,
+    @NamedQuery(name = "Transactionoffer.findById", query = "SELECT t FROM Transactionoffer t WHERE t.id = :id")
+    ,
+    @NamedQuery(name = "Transactionoffer.findByAmount", query = "SELECT t FROM Transactionoffer t WHERE t.amount = :amount")
+    ,
     @NamedQuery(name = "Transactionoffer.findByRate", query = "SELECT t FROM Transactionoffer t WHERE t.rate = :rate")})
 public class Transactionoffer implements Serializable {
 
@@ -145,5 +148,17 @@ public class Transactionoffer implements Serializable {
     public String toString() {
         return "com.online_exchange.model.Transactionoffer[ id=" + id + " ]";
     }
-    
+
+    public void purge() {
+        this.setClient(null);
+        this.setExchanger(null);
+        this.setTransactionRequest(null);
+    }
+
+    public void prune() {
+        this.getClient().purge();
+        this.getExchanger().purge();
+        this.getTransactionRequest().purge();
+    }
+
 }

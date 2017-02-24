@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.online_exchange.dao.TransactionDao;
 import com.online_exchange.dao.TransactionDaoImpl;
 import com.online_exchange.model.Completedtransaction;
-import com.online_exchange.model.OfferDto;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
 import com.online_exchange.model.User;
@@ -94,9 +93,9 @@ public class RestController {
         //return json.toString();
     }
 
-    @RequestMapping(value = "/danijemozdakurcina", method = RequestMethod.GET)
-    public void test2() throws JsonProcessingException {
-
+    @RequestMapping(value = "/test2", method = RequestMethod.GET)
+    public String test2() {
+        return "Test complete";
     }
 
 }

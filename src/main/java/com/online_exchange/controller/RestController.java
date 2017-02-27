@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @ResponseBody
 public class RestController {
+    //this controller is to become deprecated as soon as ClientRestController and ExchangerRestController are up and running; in order for that to happen, we need to take care of transaction-related checks, ID hashing and dynamic login/registration tasks
 
     @Autowired
     TransactionDao transactionDao;

@@ -1,7 +1,7 @@
 package com.online_exchange.model;
 
 public enum UserProfileType {
-	USER("USER"),
+	CLIENT("CLIENT"),
 	ADMINISTRATOR("ADMINISTRATOR"),
 	EXCHANGER("EXCHANGER");
 	

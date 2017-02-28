@@ -48,8 +48,8 @@ public class RedirectConfiguration extends SimpleUrlAuthenticationSuccessHandler
 			url = "/administrator";
 		} else if (isAdmin(roles)) {
 			url = "/exchanger";
-		} else if (isUser(roles)) {
-			url = "/user";
+		} else if (isClient(roles)) {
+			url = "/client";
 		} else {
 			url="/accessDenied";
 		}
@@ -64,8 +64,8 @@ public class RedirectConfiguration extends SimpleUrlAuthenticationSuccessHandler
         return redirectStrategy;
     }
     
-	private boolean isUser(List<String> roles) {
-		if (roles.contains("ROLE_USER")) {
+	private boolean isClient(List<String> roles) {
+		if (roles.contains("ROLE_CLIENT")) {
 			return true;
 		}
 		return false;

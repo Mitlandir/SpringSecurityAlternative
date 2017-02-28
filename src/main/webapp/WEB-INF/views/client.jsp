@@ -6,7 +6,7 @@
 	<title>Welcome page</title>
 </head>
 <body>
-	Dear <strong>${user}</strong>, Welcome to USER.
+	Dear <strong>${user}</strong>, Welcome to CLIENT.
 	<a href="<c:url value="/logout" />">Logout</a>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	  http.authorizeRequests()
 	  	//.antMatchers("/", "/home").permitAll()
-	  	.antMatchers("/", "/home").access("hasRole('USER')")
+	  	.antMatchers("/", "/home").access("hasRole('CLIENT')")
 	  	.antMatchers("/exchanger/**").access("hasRole('EXCHANGER')")
 	  	.antMatchers("/db/**").access("hasRole('EXCHANGER') and hasRole('ADMINISTRATOR')")
 	  	//.and().formLogin().loginPage("/login")

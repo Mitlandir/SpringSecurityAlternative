@@ -21,10 +21,10 @@ public class MainController {
     UserDao userDao;
     
 
-    @RequestMapping(value = {"/", "/user"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {      
+    @RequestMapping(value = {"/", "/client"}, method = RequestMethod.GET)
+    public String homePage(ModelMap model) {    
         model.addAttribute("user", getPrincipal());
-        return "user";
+        return "client";
     }
 
     @RequestMapping(value = "/exchanger", method = RequestMethod.GET)

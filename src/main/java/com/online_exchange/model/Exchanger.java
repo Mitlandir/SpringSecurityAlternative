@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Exchanger implements Serializable {
@@ -16,86 +17,95 @@ public class Exchanger implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "STATE", nullable = false)
-    private String state = State.ACTIVE.getState();
-
     @OneToMany(mappedBy = "exchanger")
     private List<Completedtransaction> completedtransactions;
 
     @OneToMany(mappedBy = "exchanger")
     private List<Transactionoffer> transactionoffers;
 
+    @OneToMany(mappedBy = "exchanger")
+    private List<Clerk> clerks;
+
+    @OneToOne(mappedBy = "exchanger")
+    private User user;
+    
+    private String testProperty;
+
     public Exchanger() {
     }
 
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return the state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * @param state the state to set
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * @return the completedtransactions
-     */
     public List<Completedtransaction> getCompletedtransactions() {
         return completedtransactions;
     }
 
-    /**
-     * @param completedtransactions the completedtransactions to set
-     */
     public void setCompletedtransactions(List<Completedtransaction> completedtransactions) {
         this.completedtransactions = completedtransactions;
     }
 
-    /**
-     * @return the transactionoffers
-     */
     public List<Transactionoffer> getTransactionoffers() {
         return transactionoffers;
     }
 
-    /**
-     * @param transactionoffers the transactionoffers to set
-     */
     public void setTransactionoffers(List<Transactionoffer> transactionoffers) {
         this.transactionoffers = transactionoffers;
+    }
+
+    public List<Clerk> getClerks() {
+        return clerks;
+    }
+
+    public void setClerks(List<Clerk> clerks) {
+        this.clerks = clerks;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void purge() {
         this.setCompletedtransactions(null);
         this.setTransactionoffers(null);
+        this.setClerks(null);
+        this.setUser(null);
     }
 
     public void prune() {
-        for(Completedtransaction compl : this.getCompletedtransactions()){
-            compl.prune();
+        for (Completedtransaction compl : this.getCompletedtransactions()) {
+            compl.purge();
         }
-        for(Transactionoffer offer : this.getTransactionoffers()){
-            offer.prune();
+        for (Transactionoffer offer : this.getTransactionoffers()) {
+            offer.purge();
         }
+        for (Clerk clerk : this.getClerks()) {
+            clerk.purge();
+        }
+
+    }
+
+    /**
+     * @return the testProperty
+     */
+    public String getTestProperty() {
+        return testProperty;
+    }
+
+    /**
+     * @param testProperty the testProperty to set
+     */
+    public void setTestProperty(String testProperty) {
+        this.testProperty = testProperty;
     }
 
 }

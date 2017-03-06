@@ -2,10 +2,17 @@ package com.online_exchange.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.online_exchange.dao.TransactionDao;
+import com.online_exchange.model.Client;
 import com.online_exchange.model.Completedtransaction;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
+import com.online_exchange.model.User;
+import com.online_exchange.model.UserProfile;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +88,34 @@ public class RestController {
     }
 
     @RequestMapping(value = "/test2", method = RequestMethod.GET)
-    public String test2() {
-        return "Test complete";
+    public void test2() {
+       /* User user = new User();
+        user.setEmail("user@user.com");
+        user.setFirstName("sera");
+        user.setLastName("seric");
+        user.setPassword("sera");
+        user.setSsoId("sera");
+        user.setState("Active");
+        UserProfile up = new UserProfile();
+        List<UserProfile> profiles = new ArrayList();
+        up.setType("Client");
+        profiles.add(up);
+        
+        user.setUserProfiles(profiles);
+        
+        
+        Client client = new Client();
+        client.setTestProperty("just testing");
+        
+        user.setClient(client);
+        //client.setUser(user);
+        Session ses = sessionFactory.openSession();
+        Transaction tx = ses.beginTransaction();
+        ses.save(client);
+        ses.save(user);
+        tx.commit();
+        ses.close();*/
+        
     }
 
 }

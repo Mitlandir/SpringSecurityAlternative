@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -50,8 +51,11 @@ public class User implements Serializable {
                 @JoinColumn(name = "USER_PROFILE_ID")})
     private List<UserProfile> userProfiles = new ArrayList<UserProfile>();
     
+
+    @OneToOne
     private Client client;
     
+    @OneToOne
     private Exchanger exchanger;
     
 

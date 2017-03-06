@@ -55,7 +55,7 @@ public class Transactionrequest implements Serializable {
     private double rate;
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     @OneToOne
-    private User client;
+    private Client client;
     @OneToMany(mappedBy = "transactionRequest")
     private Collection<Transactionoffer> transactionofferCollection;
     @Transient
@@ -98,11 +98,11 @@ public class Transactionrequest implements Serializable {
         this.rate = rate;
     }
 
-    public User getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(User client) {
+    public void setClient(Client client) {
         this.client = client;
     }
 

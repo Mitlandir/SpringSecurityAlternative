@@ -1,11 +1,9 @@
 package com.online_exchange.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,17 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "APP_USER")
 
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,20 +42,6 @@ public class User {
     @Column(name = "STATE", nullable = false)
     private String state = State.ACTIVE.getState();
 
-    @OneToOne(mappedBy = "client")
-    private Transactionrequest transactionrequest;
-
-    @OneToMany(mappedBy = "exchanger")
-    private List<Completedtransaction> completedtransactionsExchanger;
-
-    @OneToMany(mappedBy = "client")
-    private List<Completedtransaction> completedtransactionsClient;
-
-    @OneToMany(mappedBy = "client")
-    private List<Transactionoffer> transactionoffersClient;
-    @OneToMany(mappedBy = "exchanger")
-    private List<Transactionoffer> transactionoffersExchanger;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "APP_USER_USER_PROFILE",
             joinColumns = {
@@ -70,6 +49,11 @@ public class User {
             inverseJoinColumns = {
                 @JoinColumn(name = "USER_PROFILE_ID")})
     private List<UserProfile> userProfiles = new ArrayList<UserProfile>();
+    
+    private Client client;
+    
+    private Exchanger exchanger;
+    
 
     public User() {
     }
@@ -183,72 +167,21 @@ public class User {
         this.userProfiles = userProfiles;
     }
 
-    public Transactionrequest getTransactionrequest() {
-        return transactionrequest;
+    public Client getClient() {
+        return client;
     }
 
-    public void setTransactionrequest(Transactionrequest transactionrequest) {
-        this.transactionrequest = transactionrequest;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public void setCompletedtransactionsClient(List<Completedtransaction> completedtransactionsClient) {
-        this.completedtransactionsClient = completedtransactionsClient;
+    public Exchanger getExchanger() {
+        return exchanger;
     }
 
-    public List<Transactionoffer> getTransactionoffersClient() {
-        return transactionoffersClient;
+    public void setExchanger(Exchanger exchanger) {
+        this.exchanger = exchanger;
     }
 
-    public void setTransactionoffersClient(List<Transactionoffer> transactionoffersClient) {
-        this.transactionoffersClient = transactionoffersClient;
-    }
-
-    /**
-     * @return the transactionoffersExchanger
-     */
-    public List<Transactionoffer> getTransactionoffersExchanger() {
-        return transactionoffersExchanger;
-    }
-
-    /**
-     * @param transactionoffersExchanger the transactionoffersExchanger to set
-     */
-    public void setTransactionoffersExchanger(List<Transactionoffer> transactionoffersExchanger) {
-        this.transactionoffersExchanger = transactionoffersExchanger;
-    }
-
-    /**
-     * @return the completedtransactionsClient
-     */
-    public List<Completedtransaction> getCompletedtransactionsClient() {
-        return completedtransactionsClient;
-    }
-
-    /**
-     * @return the completedtransactionsExchanger
-     */
-    public List<Completedtransaction> getCompletedtransactionsExchanger() {
-        return completedtransactionsExchanger;
-    }
-
-    /**
-     * @param completedtransactionsExchanger the completedtransactionsExchanger
-     * to set
-     */
-    public void setCompletedtransactionsExchanger(List<Completedtransaction> completedtransactionsExchanger) {
-        this.completedtransactionsExchanger = completedtransactionsExchanger;
-    }
-
-    public void purge() {
-        this.setCompletedtransactionsClient(null);
-        this.setCompletedtransactionsExchanger(null);
-        this.setTransactionoffersClient(null);
-        this.setTransactionoffersExchanger(null);
-        this.setTransactionrequest(null);
-    }
-
-    public void prune() {
-
-    }
 
 }

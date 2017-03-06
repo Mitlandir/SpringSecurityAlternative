@@ -5,7 +5,6 @@ import com.online_exchange.dao.TransactionDao;
 import com.online_exchange.model.Completedtransaction;
 import com.online_exchange.model.Transactionoffer;
 import com.online_exchange.model.Transactionrequest;
-import java.util.List;
 import org.hibernate.SessionFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
